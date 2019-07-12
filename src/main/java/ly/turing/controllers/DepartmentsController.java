@@ -1,26 +1,36 @@
 package ly.turing.controllers;
 
-import ly.turing.model.CategoryEntity;
-import ly.turing.repository.CategoryRepository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import ly.turing.service.DepartmentService;
+import ly.turing.util.ErrorObject;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/departments")
 public class DepartmentsController {
-    private final CategoryRepository categoryRepository;
+    private final DepartmentService departmentService;
 
-    public DepartmentsController(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public DepartmentsController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 
 
-    @RequestMapping(method = RequestMethod.GET,produces = "application/json")
-    private List<CategoryEntity> getCategories() {
-        return categoryRepository.findAll();
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    public Object getDepartments() {
+        return departmentService.getAllDepartments();
     }
+
+    @GetMapping(value = "/{department_id}",produces = "application/json")
+    public Object getOneDepartment(@PathVariable String department_id, HttpServletResponse response) {
+        Object object = departmentService.findByIdAndGetDto(department_id);
+
+        if (object instanceof ErrorObject) {
+            response.setStatus(((ErrorObject) object).getStatus());
+            return object;
+        } else {
+            return object;
+        }
+    }
+
 }

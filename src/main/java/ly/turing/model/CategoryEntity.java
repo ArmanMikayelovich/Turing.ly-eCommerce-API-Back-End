@@ -3,8 +3,8 @@ package ly.turing.model;
 
 import lombok.Data;
 
-
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -25,6 +25,11 @@ public class CategoryEntity {
 
     @Column(name = "description", length = 1000)
     private String description;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", insertable = false, updatable = false)
+    private DepartmentEntity departmentEntity;
 
 
 }

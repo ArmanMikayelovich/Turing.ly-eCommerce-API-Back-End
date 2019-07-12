@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -33,4 +34,5 @@ public class ProductEntity {
     @Column(name = "display", columnDefinition = "SMALLINT", nullable = false)
     @ColumnDefault("0")
     private int display;
+
 }
