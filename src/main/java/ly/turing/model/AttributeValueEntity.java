@@ -20,4 +20,8 @@ public class AttributeValueEntity {
 
     @Column(name = "value", length = 100)
     private String value;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "attribute_id", insertable = false, updatable = false)
+    private AttributeEntity attributeEntity;
 }

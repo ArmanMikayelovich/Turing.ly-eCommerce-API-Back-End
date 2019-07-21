@@ -8,13 +8,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "product_attribute")
 public class ProductAttributeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name = "product_id", nullable = false)
     private int productId;
 
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Id
     @Column(name = "attribute_value_id", nullable = false)
     private int attributeValueId;
 }
